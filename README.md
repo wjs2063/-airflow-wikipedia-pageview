@@ -46,4 +46,8 @@ ________________________________________________________________________________
 이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동 
 
 2.could not translate host name "wiki_results" to address: Name or service not known
-해결법:
+해결법: yml 파일을 잘 보면 
+
+```
+  - AIRFLOW_CONN_MY_POSTGRES=postgresql://airflow:airflow@postgres:5432/airflow 로 바꿔준다.
+```
