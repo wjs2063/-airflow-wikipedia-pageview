@@ -37,3 +37,10 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 
 
 
+
+
+______________________________________________________________________________________________
+
+## Error
+1. HTTPConnectionPool(host='18b42363a6c0', port=8793): Max retries exceeded with url: /log/wikipedia/_extract_gz/2022-06-30T00:00:00+00:00/1.log (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x4004923880>: Failed to establish a new connection: [Errno 111] Connection refused'))
+: Connection refused 지속적인 요청을 해서 해당 url에서 거부
