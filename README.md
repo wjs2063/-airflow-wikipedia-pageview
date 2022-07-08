@@ -3,13 +3,7 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 
 --------------------------------------------------------------------------------------------- 
 
-## 파이프라인 구축시 DB 정규화를 해야할까? 
-해답: 
 
-원천데이터에서 되어있지않다면 굳이 할필요가없다. 이유는 보통 DW 에서 역정규화를 시켜서 데이터 테이블을 관리하는경우가 많음 ( 한눈에 보기위해서 ) 
-왜 역정규화를 시킬까? join 을 해서 조회해야하는경우라면 굉장한 시간이 들수있다. 이러한경우때문에 그냥 전체테이블로 관리하는경우가많음.
-
---------------------------------------------------------------------------------------------- 
 
 ## 들어가기에 앞서
 
@@ -32,35 +26,60 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 
 ---------------------------------------------------------------------------------------------  
 
-#### sqlite 장점 : 사용용이성, 경량화 ,성능, 안정적임, 유연성(여러언어지원),호환성과 이식성,비용절감 
-#### sqlite 단점 : 트래픽이많으면 부적합, 날짜,시간 클래스 지원 x 
+#### sqlite 장점 : 사용용이성, 경량화 ,성능, 안정적임, 유연성(여러언어지원),호환성과 이식성,비용절감   
+#### sqlite 단점 : 트래픽이많으면 부적합, 날짜,시간 클래스 지원 x   
 
 ---------------------------------------------------------------------------------------------  
 
-airflow connections 추가하기  
+airflow connections 추가하기    
 
-airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql, host:localhost,login:postgres, password:postgres 
+airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql,   host:localhost,login:postgres, password:postgres   
 
-추가후에 wiki_results 컨테이너에 접속한다 /bin/bash 접속후  
-psql -U airflow -h localhost 명령어 실행 후 \l 하면 database 나옴
----------------------------------------------------------------------------------------------  
+추가후에 wiki_results 컨테이너에 접속한다 /bin/bash 접속후    
+psql -U airflow -h localhost 명령어 실행 후 \l 하면 database 나옴   
+---------------------------------------------------------------------------------------------    
 ### postgresql 명령어
 
-\d [table 명] : table 정보 조회  
-\d+ : table 에 용량까지 나옴
-select * from pageview_counts; -> 제대로 저장되어있는지 확인하기 ( 그냥 단순 누적으로 구성되어있음 )
+\d [table 명] : table 정보 조회    
+\d+ : table 에 용량까지 나옴    
+select * from pageview_counts; -> 제대로 저장되어있는지 확인하기 ( 그냥 단순 누적으로 구성되어있음 )  
 
 
 select k.pagename,k.hr AS "hour", k.average AS "average pageviews" FROM (SELECT pagename,date_part('hour',datetime) AS hr, AVG(pageviewcount) AS average,ROW_NUMBER() OVER (PARTITION BY pagename ORDER BY AVG(pageviewcount) DESC ) from pageview_counts GROUP BY pagename,hr ) as k where row_number=1;
 
-결과: 페이지당 
+결과: 페이지당 가장있기있는 시간, 평균페이지 뷰 를 보여주게된다.  
+
+
+아래는 결과사진   
+
+
+
+<img width="1305" alt="스크린샷 2022-07-08 오후 11 24 25" src="https://user-images.githubusercontent.com/76778082/178012363-179d6dc2-7216-4120-bdd8-4acf65493673.png">
+
+
 
 
 ______________________________________________________________________________________________
 
 ## Error
-1. HTTPConnectionPool(host='18b42363a6c0', port=8793): Max retries exceeded with url: /log/wikipedia/_extract_gz/2022-06-30T00:00:00+00:00/1.log (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x4004923880>: Failed to establish a new connection: [Errno 111] Connection refused'))
-이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동 
+1. HTTPConnectionPool(host='18b42363a6c0', port=8793): Max retries exceeded with url: /log/wikipedia/_extract_gz/2022-06-30T00:00:00+00:00/1.log (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x4004923880>: Failed to establish a new connection: [Errno 111] Connection refused'))  
+이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동   
 
-2.could not translate host name "wiki_results" to address: Name or service not known
-해결법: 도커컨테이너 가 제대로 생성되었는지 확인해본다 ( 안생겨서 찾을수없는 것)
+2.could not translate host name "wiki_results" to address: Name or service not known  
+해결법: 도커컨테이너 가 제대로 생성되었는지 확인해본다 ( 안생겨서 찾을수없는 것)  
+
+______________________________________________________________________________________________
+
+## 파이프라인 구축시 DB 정규화를 해야할까?   
+해답:   
+
+원천데이터에서 되어있지않다면 굳이 할필요가없다. 이유는 보통 DW 에서 역정규화를 시켜서 데이터 테이블을 관리하는경우가 많음 ( 한눈에 보기위해서 )   
+왜 역정규화를 시킬까? join 을 해서 조회해야하는경우라면 굉장한 시간이 들수있다. 이러한경우때문에 그냥 전체테이블로 관리하는경우가많음.  
+
+--------------------------------------------------------------------------------------------- 
+
+잘 실행된 결과 
+
+
+<img width="1359" alt="스크린샷 2022-07-08 오후 11 16 19" src="https://user-images.githubusercontent.com/76778082/178012743-3569c61c-0408-4335-ac9a-305d48148417.png">
+
