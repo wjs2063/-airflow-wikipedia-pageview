@@ -53,7 +53,7 @@ select * from pageview_counts; -> 제대로 저장되어있는지 확인하기 (
 
 select k.pagename,k.hr AS "hour", k.average AS "average pageviews" FROM (SELECT pagename,date_part('hour',datetime) AS hr, AVG(pageviewcount) AS average,ROW_NUMBER() OVER (PARTITION BY pagename ORDER BY AVG(pageviewcount) DESC ) from pageview_counts GROUP BY pagename,hr ) as k where row_number=1;
 
-
+결과: 페이지당 
 
 
 ______________________________________________________________________________________________
