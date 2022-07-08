@@ -35,7 +35,10 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 #### sqlite 장점 : 사용용이성, 경량화 ,성능, 안정적임, 유연성(여러언어지원),호환성과 이식성,비용절감 
 #### sqlite 단점 : 트래픽이많으면 부적합, 날짜,시간 클래스 지원 x 
 
+---------------------------------------------------------------------------------------------  
 
+airflow connections 추가하기   
+airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql, host:localhost,login:postgres, password:postgres,   
 
 
 
