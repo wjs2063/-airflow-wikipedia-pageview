@@ -46,4 +46,4 @@ ________________________________________________________________________________
 이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동 
 
 2.could not translate host name "wiki_results" to address: Name or service not known
-해결법:
+해결법: 도커컨테이너 가 제대로 생성되었는지 확인해본다 ( 안생겨서 찾을수없는 것)
