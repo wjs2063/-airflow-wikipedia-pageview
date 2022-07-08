@@ -37,8 +37,22 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 
 ---------------------------------------------------------------------------------------------  
 
-airflow connections 추가하기   
-airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql, host:localhost,login:postgres, password:postgres,   
+airflow connections 추가하기  
+
+airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql, host:localhost,login:postgres, password:postgres 
+
+추가후에 wiki_results 컨테이너에 접속한다 /bin/bash 접속후  
+psql -U airflow -h localhost 명령어 실행 후 \l 하면 database 나옴
+---------------------------------------------------------------------------------------------  
+### postgresql 명령어
+
+\d [table 명] : table 정보 조회  
+\d+ : table 에 용량까지 나옴
+select * from pageview_counts; -> 제대로 저장되어있는지 확인하기 ( 그냥 단순 누적으로 구성되어있음 )
+
+
+select k.pagename,k.hr AS "hour", k.average AS "average pageviews" FROM (SELECT pagename,date_part('hour',datetime) AS hr, AVG(pageviewcount) AS average,ROW_NUMBER() OVER (PARTITION BY pagename ORDER BY AVG(pageviewcount) DESC ) from pageview_counts GROUP BY pagename,hr ) as k where row_number=1;
+
 
 
 
