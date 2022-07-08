@@ -31,6 +31,16 @@ Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축
 
 ---------------------------------------------------------------------------------------------  
 
+# USAGE
+
+``` 
+docker-compose up -d
+```
+
+
+
+--------------------------------------------------------------------------------------------- 
+
 airflow connections 추가하기    
 
 airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql,   host:localhost,login:postgres, password:postgres   
