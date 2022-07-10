@@ -78,7 +78,10 @@ ________________________________________________________________________________
 
 ## Error
 1. HTTPConnectionPool(host='18b42363a6c0', port=8793): Max retries exceeded with url: /log/wikipedia/_extract_gz/2022-06-30T00:00:00+00:00/1.log (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x4004923880>: Failed to establish a new connection: [Errno 111] Connection refused'))  
-이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동   
+이유 : Connection refused 지속적인 요청을 해서 해당 url에서 거부 였지만 파일경로설정제대로해주고나니 정상작동  
+
+try except 로 time sleep() 도 걸어주면서 시도해보았으나 좀처럼 해결되지않았음, 
+결국 문제는 지속적인 http 요청이 문제인것은 맞으나 왜 지속적으로 요청을 하게되었나? 였음 파일 경로문제로 해당 파일에 결과가 계속 저장되지않아서 계속 요청했던것으로 보임  
 
 2.could not translate host name "wiki_results" to address: Name or service not known  
 해결법: 도커컨테이너 가 제대로 생성되었는지 확인해본다 ( 안생겨서 찾을수없는 것)  
