@@ -69,6 +69,16 @@ airflow connections 추가하기
 airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn_id : my_postgres ( postgressqloperator 의 id 입력 , type=postgressql,   host:localhost,login:postgres, password:postgres   
 
 추가후에 wiki_results 컨테이너에 접속한다 /bin/bash 접속후    psql -U airflow -h localhost 명령어 실행 후 \l 하면 database 나옴   
+---------------------------------------------------------------------------------------------
+Tableau  랑 연결작업
+
+postgresql 과 연결 시작
+
+서버: localhost or 해당 ip   
+port : 포트포워딩 해준 port 번호적어주기   
+database : 설정한 db명 적어주기    
+계정,비밀번호 설정한 대로 입력해주기    
+
 
 
 ---------------------------------------------------------------------------------------------    
@@ -76,6 +86,7 @@ airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn
 
 terminal에서 docker container 로 접속 docker exec -it [컨테이너이름] /bin/bash  
 psql -U airflow 
+
 
 
 
