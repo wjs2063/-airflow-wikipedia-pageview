@@ -79,6 +79,20 @@ port : 포트포워딩 해준 port 번호적어주기
 database : 설정한 db명 적어주기    
 계정,비밀번호 설정한 대로 입력해주기    
 
+TABLEAU 에서 작업중 생겼던 Error  
+
+1.PostgreSQL 데이터 원본 'ShowData'과(와) 통신하는 동안 오류가 발생했습니다.  
+잘못된 연결: 데이터 원본에 연결할 수 없습니다.  
+오류 코드:8D4946CF  
+데이터를 로드하는 동안 오류가 발생했습니다.  
+ERROR: current transaction is aborted, commands ignored until end of transaction block;  
+Error while executing the query  
+SELECT "pageview_counts"."datetime" AS "datetime",  
+  "pageview_counts"."pagename" AS "pagename",  
+  "pageview_counts"."pageviewcount" AS "pageviewcount"  
+FROM "public"."pageview_counts" "pageview_counts"  
+LIMIT 10000   
+도커컨테이너의 db 서버와 tableau 를 연결후 sql문으로 테이터 추출할때 생겼던 오류 (scheduler 서버또한 켜두고 실시간 으로 진행하던도중)  
 
 
 ---------------------------------------------------------------------------------------------    
