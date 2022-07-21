@@ -74,6 +74,11 @@ airflow webserver 접속후 -> Admin에 connections 클릭 -> add 클릭 -> conn
 ---------------------------------------------------------------------------------------------    
 ### postgresql 명령어
 
+terminal에서 docker container 로 접속 docker exec -it [컨테이너이름] /bin/bash  
+psql -U airflow 
+
+
+
 \d [table 명] : table 정보 조회    
 \d+ : table 에 용량까지 나옴    
 select * from pageview_counts; -> 제대로 저장되어있는지 확인하기 ( 그냥 단순 누적으로 구성되어있음 )  
