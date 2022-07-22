@@ -1,6 +1,6 @@
 # -airflow-wikipedia-pageview
 Apache-Airflow 를 이용한 회사별 pageview 파이프라인 구축  
-Tableau를이용한 데이터 시각화  
+Tableau를이용한 데이터 시각화  (https://public.tableau.com/app/profile/jeonjaehyeon/viz/pageview_dashboard/1?publish=yes )
 --------------------------------------------------------------------------------------------- 
 
 
