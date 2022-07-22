@@ -93,7 +93,8 @@ SELECT "pageview_counts"."datetime" AS "datetime",
 FROM "public"."pageview_counts" "pageview_counts"  
 LIMIT 10000   
 도커컨테이너의 db 서버와 tableau 를 연결후 sql문으로 테이터 추출할때 생겼던 오류 (scheduler 서버또한 켜두고 실시간 으로 진행하던도중)   
-해결법: 실시간이라 transaction과정에서 뭔가 오류가떳던모양인지... 아직 해결 못함. 일단은 실시간보다는 Datagrip(workbench)로 파일을 따로 저장한후 진행  
+해결법: https://community.tableau.com/s/question/0D54T00000i3vRwSAI/error-error-current-transaction-is-aborted-commands-ignored-until-end-of-transaction-block-error-while-executing-the-query-when-connecting-or-interacting-with-postgresql-data-source  
+해당 os에맞는 드라이버다운   
 
 ---------------------------------------------------------------------------------------------    
 ### postgresql 명령어
